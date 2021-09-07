@@ -1,0 +1,590 @@
+//result management system 
+//By shahzad haider 
+
+
+#include<iostream>
+#include<conio.h> //for getch();
+#include<iomanip>//for setw();
+#include<stdio.h>
+#include<windows.h>//for sleep();
+
+using namespace std;
+//class student
+float tper[100];
+string tname[100];
+int troll[100];
+int tomarks[100];
+
+class Student{
+   int rollno[100];
+   string name[100];
+   int obtmarks[100];
+   int totmarks;
+   int qan;
+   float per[100];
+   int passratio;
+   public: 
+   //this is for indicating grades according to percentages
+   void menu();
+   void input_data();
+   void view_results();
+   void view_toppers();
+   void view_failures();
+   void seach_results();
+   void update_results();
+   void delete_results();
+};  
+
+//menu func
+void Student :: menu(){ 
+   
+    system("cls");
+    cout<<"\t\t\t _____________________________________\n";
+    cout<<"\t\t\t|=====================================|\n";
+    cout<<"\t\t\t|____________RESULT SYSTEM____________|\n\n\n";
+for ( int i=0 ; i<28 ; i++)
+{
+    Sleep(10);
+	cout<<"=";  }cout<<" MAIN MENU ";for ( int i=0 ; i<41 ; i++)
+{
+    Sleep(10);
+	cout<<"=";  }  
+	cout<<endl;
+	cout<<endl;    //=======================================\n\n\n";
+	int choice ;
+		Sleep(10);
+	cout<<"\t1.INSERT DATA \n";
+	cout<<"\t________________\n\n";
+		Sleep(10);
+	cout<<"\t2.VIEW RESULTS \n ";
+	cout<<"\t_________________\n\n";
+		Sleep(10);
+	cout<<"\t3.VIEW TOPPERS\n";
+	cout<<"\t__________________\n\n";
+		Sleep(10);
+	cout<<"\t4.VIEW FAILURES \n";
+	cout<<"\t__________________\n\n";
+		Sleep(10);
+	cout<<"\t5.SEARCH FOR RESULTS\n";
+	cout<<"\t_______________________\n\n";
+		Sleep(10);
+	cout<<"\t6.UPDATE RESULTS \n";
+	cout<<"\t___________________\n\n";
+		Sleep(10);
+	cout<<"\t7.DELETE RESULTS \n";
+	cout<<"\t___________________\n\n";
+		Sleep(10);
+	cout<<"\t8.EXIT \n ";
+	cout<<"\t_________\n\n";
+		Sleep(10);
+		cout<<endl;
+		cout<<endl;
+	for ( int i=0; i<78; i++)
+	{
+	Sleep(10);
+	cout<<"=";
+}  
+   cout<<endl;
+   cout<<endl;
+	cout<<"\nEnter your choice : ";
+	cin>>choice;
+	switch ( choice ){
+		case 1:
+		input_data();
+		break;
+		case 2:
+		 view_results();
+		break;
+		case 3:
+			view_toppers();
+		break;
+		case 4:
+			view_failures();
+			break;
+		case 5:
+		seach_results();
+		break;
+		case 6:
+		update_results();
+		break;
+		case 7:
+		delete_results();
+		break;
+		case 8:
+		exit(0);
+		default:
+			cout<<"\nInvalid input \n";
+	}
+} //menu func ends
+
+void Student :: input_data(){ //input data func
+ p:
+ system("cls");
+    cout<<"\t\t\t _____________________________________\n";
+    cout<<"\t\t\t|=====================================|\n";
+    cout<<"\t\t\t|____________RESULT SYSTEM____________|\n";
+ cout<<" \n\n* ENTER TOTAL MARKS OF STUDENTS IN ORDER TO MAKE RESULTS FOR THEM : ";
+ cin>>totmarks;
+ cout<<"\n* ENTER THE QUANTITY OF STUDENTS IN CLASS : ";
+ cin>>qan;
+
+ for ( int i=0 ; i<qan ; i++)
+ {  cout<<"\n******************* STUDENT "<<i+1<<" DATA ********************************\n\n";
+ 	cout<<"\n* Enter the Name of Student "<<i+1<<" :";
+ 	cin>>name[i];
+ 	cout<<"\n* Enter Roll no of Sudent "<< i+1 <<" : ";
+ 	cin>>rollno[i];
+ 	a:
+ 	cout<<"\n* Enter the Marks Obtained By Student "<<i+1<<" out of "<<totmarks<<" : ";
+ 	cin>>obtmarks[i];
+ 	if ( obtmarks[i] > totmarks)
+ 	{
+ 		cout<<"Wrong Input Detected !\n";
+ 		cout<<"Insert Data again !\n";
+ 		getch();
+ 		goto a;
+	 }
+	 } 
+	 
+	 
+	     
+for ( int i=0 ; i<qan ; i++ )
+{ 
+ 
+   per[i] = (float)(obtmarks[i]*100)/totmarks;
+   
+}
+	 
+	for ( int i=0 ; i<=qan ; i++){
+ 	for ( int j=i+1; j<qan ; j++)
+	 {
+	 	if ( rollno[i] == rollno[j]) 
+		 {
+		 
+	 	cout<<"Dublicate roll no found !\n inserted data again !\n";
+	 	getch();
+	 	goto p; }
+	 }
+ }
+  
+  
+  cout<<" \n\nData inserted Successfully !\n";
+  cout<<"\nPress Any key to go back \n";
+  getch();
+  menu();
+}  //input data func ends
+
+void Student :: view_results(){  //view results func
+system("cls");
+
+    cout<<"\t\t\t _____________________________________\n";
+    cout<<"\t\t\t|=====================================|\n";
+    cout<<"\t\t\t|____________RESULT SYSTEM____________|\n";
+    
+    
+
+cout<<"\nPASSING RATIO = 50%\n";
+ cout<<"\n===============================================================================\n";
+ cout<<" SR.NO    ROLL    NAME     O MARKS    T MARKS   PER%   GRADE      REMARKS\n";
+ cout<<"\n===============================================================================\n\n";
+ 
+ for ( int i=0 ; i<qan ; i++) 
+ 	{  
+ 	   cout<<setw(4)<<i+1<<setw(8)<<rollno[i]<<setw(12)<<name[i]<<setw(8)<<obtmarks[i]<<setw(12)<<totmarks<<setw(8)<<per[i]<<"%"<<setw(8);
+ 	  
+ 	   if ( per[i]>= 80 ) 
+		{
+			cout<<" A+\t";
+			cout<<" Excellent!\n";
+		 }
+	else if ( per[i] < 80 && per[i] >= 70) 
+	{
+		cout<<" \t A\t Good!\n";
+	} 
+ 	else if ( per[i] < 70 && per[i] >=60)
+	 
+	   {  
+	 cout<<"  \t B \t Work hard!\n";
+		}  
+	else if ( per[i] < 60 && per[i] >= 50)
+	{
+		cout<<"\t C \t Very poor!\n";
+	} 
+		else if ( per[i] == 0)
+	{
+		cout<<"\tRecord Deleted!\n";
+	}
+	else {
+		cout<<" \t D\t Failed!  \n";
+	} 
+	cout<<"\n______________________________________________________________________________\n\n";	
+tper[i] = per[i];
+tname[i] = name[i];
+troll[i] = rollno[i];	
+tomarks[i]=	obtmarks[i];
+} 
+    
+
+
+  cout<<"\n\nPress any key to go back to main menu \n";
+  getch();
+  menu();
+}  
+
+void Student :: view_toppers()
+{  
+ system("cls");
+    cout<<"\t\t\t _____________________________________\n";
+    cout<<"\t\t\t|=====================================|\n";
+    cout<<"\t\t\t|____________RESULT SYSTEM____________|\n";
+
+
+
+int temp=0  ,temp2=0 ,temp3=0; 
+string temp1;
+	for ( int i=0 ; i<qan; i++) 
+{ 
+
+	 for ( int j=i+1; j<qan ; j++)
+	 if ( tper[i] < tper[j] )
+	 {  
+	     temp = tper[i];
+	     temp1=tname[i];
+	     temp2=troll[i];
+	     temp3=tomarks[i];
+	     tper[i]=tper[j];
+	     tname[i]=tname[j];
+	     troll[i]=troll[j];
+	     tomarks[i]=tomarks[j];
+	     tper[j]=temp;
+	     tname[j]=temp1;
+	     troll[j]=temp2;
+	     tomarks[j]=temp3;
+	 	 
+	 }
+	 
+} 
+
+
+ cout<<"\n================================================================================\n";
+ cout<<"\t****************** VIEW TOPPERS **************************\n";
+ cout<<"\n================================================================================\n";
+ cout<<" SR.NO   ROLL     NAME    O MARKS    T MARKS   PER%   GRADE     REMARKS\n";
+ cout<<"\n================================================================================\n\n";
+    for ( int i=0 ; i<3; i++) 
+{    if ( tper[i] >= 50 ) {
+
+ cout<<setw(4)<<i+1<<setw(8)<<troll[i]<<setw(12)<<tname[i]<<setw(8)<<tomarks[i]<<setw(8)<<totmarks<<setw(8)<<tper[i]<<"%"<<setw(8);
+		  if ( tper[i]>= 80 ) 
+		{
+			cout<<"  A+\t";
+			cout<<"Excellent!\n";
+		 }
+	else if ( tper[i] < 80 && tper[i] >= 70) 
+	{
+		cout<<" \tA \t Good!\n";
+	} 
+ 	else if ( tper[i] < 70 && tper[i] >=60)
+	 
+	   {  
+	 cout<<"\tB \t Work hard!\n";
+		}  
+	else if ( tper[i] < 60 && tper[i] >= 50)
+	{
+		cout<<"\tC \t Very poor! \n";
+	} 
+	else {
+		cout<<"\tD\tFailed!\n";
+	}
+cout<<"\n_______________________________________________________________________________\n\n";
+}
+}
+cout<<"\n================================================================================\n";	 
+ cout<<"\n\nPress any key to go back to main menu \n";
+  getch();
+  menu();
+}
+
+void Student :: view_failures()
+{ 
+  system("cls");
+    cout<<"\t\t\t _____________________________________\n";
+    cout<<"\t\t\t|=====================================|\n";
+    cout<<"\t\t\t|____________RESULT SYSTEM____________|\n";
+    
+cout<<"\n\n===============================================================================\n";
+       cout<<"\t********************* FAILURES ***************************\n"; 
+ cout<<"\n================================================================================\n";
+ cout<<" SR.NO    ROLL   NAME     O MARKS     T MARKS   Per%    Grade     REMARKS\n";
+ cout<<"\n================================================================================\n\n";
+	for ( int i=0 ; i<qan; i++) 
+{
+	 //for ( int j=i+1; j<qan ; j++)
+	if ( per[i] < 50 && per[i]!= 0 )
+	{
+	 cout<<setw(4)<<i+1<<setw(8)<<rollno[i]<<setw(12)<<name[i]<<setw(8)<<obtmarks[i]<<setw(8)<<totmarks<<setw(8)<<per[i]<<"%"<<setw(8)<<"\tFailed\t Try Again!\n";
+	 cout<<"\n_______________________________________________________________________________\n\n";
+	}
+	
+}
+cout<<"\n==============================================================================\n";	
+  cout<<"\n\nPress any key to go back to main menu \n";
+  getch();
+  menu();
+  
+}
+
+void Student :: seach_results(){
+	system("cls");
+    cout<<"\t\t\t _____________________________________\n";
+    cout<<"\t\t\t|=====================================|\n";
+    cout<<"\t\t\t|____________RESULT SYSTEM____________|\n";
+	int rno;
+	int found=0;
+	cout<<"\nEnter Roll No For Searching Result : ";
+	cin>>rno;
+	cout<<endl;
+ cout<<"\n=============================================================================\n";
+ cout<<" SR.NO    Roll    Name    O MARKS    T MARKS   Per%    Grade     Advice\n";
+ cout<<"\n=============================================================================\n\n";
+	for ( int i=0 ; i<qan ; i++)
+	{  
+	  if ( rollno[i] == rno  ) 
+	  {  
+	     found++;  
+ 	   cout<<setw(4)<<i+1<<setw(8)<<rollno[i]<<setw(12)<<name[i]<<setw(8)<<obtmarks[i]<<setw(8)<<totmarks<<setw(8)<<per[i]<<"%"<<setw(8);
+ 	   if ( per[i]>= 80 ) 
+		{
+			cout<<"  A+\t";
+			cout<<"Excellent!\n";
+		 }
+	else if ( per[i] < 80 && per[i] >= 70) 
+	
+	{
+		cout<<"\tA \t Good\n";
+	} 
+ 	else if ( per[i] < 70 && per[i] >=60)
+	 
+	   {  
+	 cout<<"\tB \t Work hard!\n";
+		}  
+	else if ( per[i] < 60 && per[i] >= 50)
+	{
+		cout<<"\tC \t Very poor! \n";
+	} 
+	else {
+		cout<<"\tD \t Failed!\n";
+	} 
+	 
+	  break; 
+	  }  
+ 	
+	  
+	} 
+	cout<<"\n==============================================================================\n"; 
+	if (found == 0 ) 
+	{
+		cout<<" \n\nNot found \n ";
+	} 
+	else 
+	{
+		cout<<" \n\nsuccessfully searched \n";
+	} 
+	
+	cout<<"\npress any key to go back to main menu \n";
+	getch();
+	menu();
+} 
+
+void Student :: update_results() {
+	
+system("cls");
+    cout<<"\t\t\t _____________________________________\n";
+    cout<<"\t\t\t|=====================================|\n";
+    cout<<"\t\t\t|____________RESULT SYSTEM____________|\n";
+    int roll_no , o_marks ,newroll;
+char wish ;
+float aper; 
+string aname ;
+cout<<"\n\nEnter Roll No : ";
+cin>>roll_no;
+ cout<<"\n=============================================================================\n";
+ cout<<" SR.NO    ROLL    NAME   O MARKS     T MARKS   PER%    GRADE     REMARKS\n";
+ cout<<"\n=============================================================================\n";
+  
+
+cout<<endl; cout<<endl;
+for (int i=0; i<qan ; i++) 
+{ 
+   if( rollno[i] == roll_no) 
+   
+   {     cout<<setw(4)<<i+1<<setw(8)<<rollno[i]<<setw(12)<<name[i]<<setw(8)<<obtmarks[i]<<setw(8)<<totmarks<<setw(8)<<per[i]<<"%"<<setw(8);
+ 	   if ( per[i]>= 80 ) 
+		{
+			cout<<"  A+\t";
+			cout<<"Excellent!\n";
+		 }
+	else if ( per[i] < 80 && per[i] >= 70) 
+	
+	{
+		cout<<"\tA \t Good\n";
+	} 
+ 	else if ( per[i] < 70 && per[i] >=60)
+	 
+	   {  
+	 cout<<"\tB \t Work hard!\n";
+		}   
+			else if ( per[i] < 60 && per[i] >= 50)
+	{
+		cout<<"\tC \t Very poor \n";
+	} 
+	else if ( per == 0)
+	{
+		cout<<"\tRecord Deleted!\n";
+	}
+	else {
+		cout<<"\tD \t Failed!\n";
+	}   
+cout<<"\n===============================================================================\n";		
+	cout<<"\n\n\t* Do want to update this result (Y/N)\n";
+	cin>>wish;
+	
+	if (wish == 'y' || wish == 'Y')
+	{
+	
+  cout<<"\n\n\t* Now update this result \n\n\n";
+  p:
+ 
+  cout<<"\t* Enter new name : ";
+  cin>>aname;
+ cout<<"\n\n\t* Enter new Roll no  : ";
+  cin>>newroll;
+  cout<<"\n\n\t* Enter new obtain marks : ";
+  cin>>o_marks;
+ 
+  name[i]=aname;
+ 
+ obtmarks[i] = o_marks;
+ rollno[i]=newroll;
+
+  per[i] =(float) (obtmarks[i]*100)/totmarks;
+for ( int i=0 ; i<qan ; i++){
+
+ 	for ( int j=i+1; j<qan ; j++)
+	 {
+	 	if ( rollno[i] == rollno[j]) 
+		 {
+		 
+	 	cout<<"\n\n\tDublicate roll no found !\n\n\t insert data again !\n";
+	 	getch();
+	 	goto p; }
+	 	
+	 	
+	 }
+	  }
+	  
+	  } 
+	  
+	  }
+
+  
+ cout<<"\n\n\t DATA UPDATED SUCCESSFULLY\n";
+ 
+  	 
+   	cout<<"\n\nPress any key to return to main menu  ";
+	 getch();
+	 menu();	
+	
+}   }
+
+void Student :: delete_results()
+{
+	system("cls");
+    cout<<"\t\t\t _____________________________________\n";
+    cout<<"\t\t\t|=====================================|\n";
+    cout<<"\t\t\t|____________RESULT SYSTEM____________|\n";
+    int d_roll , found = 0;
+    cout<<"\n\nENTER ROLL NO : ";
+    cin>>d_roll;
+    for ( int i=0 ; i<qan ; i++)
+    {
+    	for ( int j=i+1 ; j<=qan ; j++)
+    	if ( d_roll == rollno[i])
+    	{     
+    	    found++;
+    	    rollno[i]=0;
+    	    name[i] =" ";
+    	    obtmarks[i] = 0;
+    	    per[i]= 0;
+    	    
+    		    
+		}
+	} 
+	if ( found == 0)
+	{
+		cout<<"\n\nnot invalid Roll no \n\n";
+	}
+	   cout<<"\n\nResult deleted successfully\n\n";
+	   cout<<"press any key to go back to main" ;
+	   getch();
+	   menu();
+	   
+	   
+}
+
+
+int main (){ 
+    system("color 5F");
+	Student s;
+	p:	
+	string email ,pass , semail, spass;
+	char ch;
+
+	system("cls");
+	cout<<"===============================================================================\n";
+	cout<<"\t\t\tWELCOME TO LOGIN PORTAL\n";
+	cout<<"===============================================================================\n\n\n";
+	cout<<"\n-------------**************** SIGN IN PLEASE **********************-------------\n\n";
+	cout<<" Enter Email : ";
+	cin>>semail;                                                       //cin>>email;
+	cout<<"\n Enter password ( should be 8 characters ): ";
+	 cin>>spass;
+	 
+	cout<<"\n\n\t\t\t SIGNED IN SUCCESFULLY \n";
+	cout<<"\t\t\t________________________\n";
+	getch();
+		
+	system("cls");
+    cout<<"===============================================================================\n";
+	cout<<"\t\t\tWELCOME TO LOGIN PORTAL\n";
+	cout<<"===============================================================================\n\n\n";
+	cout<<"\n-------------**************** LOG IN PLEASE **********************-------------\n\n";
+	cout<<"\nEnter your Email : ";
+	cin>>email;
+	cout<<"\nEnter your password : ";
+     for ( int i=0 ; i<spass.length() ; i++){
+      ch = getch();
+      pass+=ch;
+       cout<<"*";
+	 }
+	if (  email == semail && pass == spass) {
+		cout<<"n\n\n\t\tLOADING\t";
+		for ( int i=0 ; i<=10 ; i++ ){
+		
+		Sleep(150);
+		
+		cout<<"*";} 
+		s.menu();
+		
+	} 
+	
+	else {
+		
+		cout<<"\n\n \t\tyour Email and Password is incorrect....\n\n\t\t\ttry again \n";
+		getch();
+		goto p;
+	}
+	
+	
+}
+
